@@ -25,6 +25,12 @@
             "description": "Composer Install Step",
             "version": "1.0.0",
             "content": "- image: {{ dockerImage }}\n  script:\n    {% if appDir %}\n    - cd {{ appDir }}\n    {% endif %}\n    - composer install {{ installFlags|default(\"--no-interaction --prefer-dist\") }}\n  cache:\n    - key:\n        files:\n          - {{ cacheFile|default(\"composer.lock\") }}\n      paths:\n        - {{ vendorDir|default(\"vendor\") }}"
+        },
+        {
+            "name": "Composer Install New New",
+            "description": "Composer Install Step",
+            "version": "1.0.2",
+            "content": "- image: {{ dockerImage }}\n  script:\n    {% if appDir %}\n    - cd {{ appDir }}\n    {% endif %}\n    - composer install {{ installFlags|default(\"--no-interaction --prefer-dist\") }}\n  cache:\n    - key:\n        files:\n          - {{ cacheFile|default(\"composer.lock\") }}\n      paths:\n        - {{ vendorDir|default(\"vendor\") }}"
         }
     ]
 }
