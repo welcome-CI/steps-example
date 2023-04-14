@@ -1,0 +1,12 @@
+{
+    "name": "Node",
+    "description": "Easily install Node.js and its package managers (npm, yarn). Best of all, install your packages with caching enabled by default",
+    "steps": [
+        {
+            "name": "Yarn_Install_With_Cache",
+            "description": "Install Yarn package manager",
+            "version": "1.0.0",
+            "content": "parameters:\n  node_image:\n    type: string\n    default: node:16-alpine\n    description: The node Docker image version tag\n  work_dir:\n    type: string\n    default: ''\n    description: Path to the directory containing your package.json file. Not needed if package.json lives in the root.\n  install_flags:\n    type: string\n    default: ''\n    description: Use this to override the standard install flags\n  cache_file:\n    type: string\n    default: ./yarn.lock\n    description: Absolute path to the cache file\n  cache_path:\n    type: string\n    default: ./node_modules\n    description: Relative path to the node_modules folder. Relative to \"work_dir\"\nimage: {{ node_image|default(parameters.node_image.default) }}\nscript:\n  {% if work_dir %}\n  - cd {{ work_dir }}\n  {% endif %}\n  - yarn install {{ install_flags }}\ncache:\n  - key:\n      files:\n        - {{ cache_file|default(parameters.cache_file.default) }}\n    paths:\n      - {{ cache_path|default(parameters.cache_path.default) }}\n"
+        }
+    ]
+}
